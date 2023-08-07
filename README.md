@@ -1,2 +1,1 @@
-# CustomList
-DevCodeCamp CustomList project
+# CustomList_FSF_CSharp_Starter
