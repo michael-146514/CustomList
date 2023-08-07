@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace CustomList
 {
-    public class CustomList<T>
+    public class CustomList<T> : IEnumerable<T>
     {
         //Member Variables (HAS A)
         private T[] items;
-        private int capacity;
+       private int capacity;
         private int count;
 
         
@@ -24,15 +25,31 @@ namespace CustomList
             items = new T[capacity];
         }
 
+       
+
         public T this[int index]
         {
             get
             {
-                return items[index];
+               if(index < 0 || index >= count)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                else
+                {
+                    return items[index];
+                }
             }
             set
             {
-                items[index] = value;
+                if (index < 0 || index >= count)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                else
+                {
+                    items[index] = value;
+                }
             }
         }
 
@@ -40,6 +57,8 @@ namespace CustomList
         {
             get { return count; }
         }
+
+        public int Capacity => capacity;
 
 
         //Member Methods (CAN DO)
@@ -94,29 +113,86 @@ namespace CustomList
                 {
                     items[i] = items[i + 1];
                 }
-
                 count--;
             }
         }
 
         public override string ToString()
         {
+
+            StringBuilder sb = new StringBuilder();
+           
+            for (int i = 0; i < count; i++)
+            {
+                sb.Append(items[i]);
+                if (i < count - 1)
+                {
+                    sb.Append("");
+                }
+            }
+      
+            return sb.ToString();
+
             //returns a single string that contains all items from array
-            return "";
         }
 
         public static CustomList<T> operator +(CustomList<T> firstList, CustomList<T> secondList)
         {
+            CustomList<T> result = new CustomList<T>();
+
+            for (int i = 0; i < firstList.Count; i++)
+            {
+                result.Add(firstList[i]);
+            }
+
+            for (int i = 0; i < secondList.Count; i++)
+            {
+                result.Add(secondList[i]);
+            }
+
+            return result;
             //returns a single CustomList<T> that contains all items from firstList and all items from secondList 
-            return null;
         }
 
         public static CustomList<T> operator -(CustomList<T> firstList, CustomList<T> secondList)
         {
-            //returns a single CustomList<T> with all items from firstList, EXCEPT any items that also appear in secondList
-            return null;
+            CustomList<T> result = new CustomList<T>();
+
+            for (int i = 0; i < firstList.Count; i++)
+            {
+                if (!secondList.Contains(firstList[i]))
+                {
+                    result.Add(firstList[i]);
+                }
+            }
+
+            return result;
+        }
+
+        public bool Contains(T item)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                if (items[i].Equals(item))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
 
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (int i = 0; i < count; i++)
+            {
+                yield return items[i];
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

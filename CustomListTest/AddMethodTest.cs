@@ -49,7 +49,7 @@ namespace CustomListTest
             myList.Add("One");
 
             //Assert
-            Assert.AreEqual(8, myList);
+            Assert.AreEqual(8, myList.Capacity);
         }
 
         [TestMethod]
