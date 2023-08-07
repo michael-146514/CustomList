@@ -21,7 +21,7 @@ namespace CustomList
 
             capacity = 4;
             count = 0;
-            items = new T[0];
+            items = new T[capacity];
         }
 
         public T this[int index]
@@ -36,7 +36,11 @@ namespace CustomList
             }
         }
 
-      
+        public int Count
+        {
+            get { return count; }
+        }
+
 
         //Member Methods (CAN DO)
         public void Add(T item)
@@ -80,6 +84,19 @@ namespace CustomList
             //If 'item' exists in the 'items' array, remove its first instance
             //Any items coming after the removed item should be shifted down so there is no empty index.
             //If 'item' was removed, return true. If no item was removed, return false.
+        }
+
+        public void RemoveAt(int index)
+        {
+            if (index >= 0 && index < count)
+            {
+                for (int i = index; i < count - 1; i++)
+                {
+                    items[i] = items[i + 1];
+                }
+
+                count--;
+            }
         }
 
         public override string ToString()
