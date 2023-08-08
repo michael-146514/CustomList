@@ -34,20 +34,25 @@ namespace CustomListTest
         public void OperatorPlus_ListTwoLonger_AddingListTwoToListOne()
         {
             //Arange
-            CustomList<int> myListOne = new CustomList<int>();
-            myListOne.Add(1);
-            myListOne.Add(3);
+            CustomList<string> myListOne = new CustomList<string>();
+            myListOne.Add("Hello");
+            string[] expectedList = { "Hello", "Bye World", "Bye" };
 
-            CustomList<int> myListTwo = new CustomList<int>();
-            myListTwo.Add(5);
-            myListOne.Add(8);
-            myListOne.Add(4);
+
+            CustomList<string> myListTwo = new CustomList<string>();
+            myListTwo.Add("Bye World");
+            myListTwo.Add("Bye");
 
             //Act
-            CustomList<int> adding = myListOne + myListTwo;
+            CustomList<string> adding = myListOne + myListTwo;
+
 
             //Assert
-            Assert.AreEqual(21, adding);
+
+            for (int i = 0; i < expectedList.Length; i++)
+            {
+                Assert.AreEqual(expectedList[i], adding[i]);
+            }
         }
 
         [TestMethod]
@@ -56,6 +61,8 @@ namespace CustomListTest
             //Arange
             CustomList<string> myListOne = new CustomList<string>();
             myListOne.Add("");
+            string[] expectedList = { "" };
+
 
             CustomList<string> myListTwo = new CustomList<string>();
             myListTwo.Add("");
@@ -63,8 +70,13 @@ namespace CustomListTest
             //Act
             CustomList<string> adding = myListOne + myListTwo;
 
+
             //Assert
-            Assert.AreEqual("", adding);
+
+            for (int i = 0; i < expectedList.Length; i++)
+            {
+                Assert.AreEqual(expectedList[i], adding[i]);
+            }
         }
     }
 }

@@ -86,7 +86,16 @@ namespace CustomList
 
         public bool Remove(T item)
         {
-            int index = Array.IndexOf(items, item, 0, count);
+            int index = -1;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (EqualityComparer<T>.Default.Equals(items[i], item))
+                {
+                    index = i;
+                    break;
+                }
+            }
 
             if (index >= 0)
             {
