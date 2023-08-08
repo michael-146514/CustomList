@@ -1,0 +1,21 @@
+Documentation
+
+
+CSyntax:
+-------
+CustomList<T> result = list1 - list2;
+
+Parameters:
+-----------
+MyListOne: The first CustomList<T> instance from which elements will be subtracted.
+myListTwo: The second CustomList<T> instance containing elements to be removed from list1.
+
+Return Type:
+------------
+CustomList<T>: A new CustomList<T> containing elements from list1 with elements from myListTwo removed.
+
+Description:
+------------
+The subraction operator allows you to substract elements from one customList instance to another customlist. The list contains elements from myListOne with any matching elemrns in MylistTwo
+
+Note that this operation preserves the order of elements in list1.
